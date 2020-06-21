@@ -62,7 +62,7 @@
 		}
 	}
 
-	function show_my_confirm($id='', $class='', $title='Konfirmasi', $yes = 'Ya', $no = 'Tidak') {
+	function show_my_confirm($id='', $class='', $title='Konfirmasi', $yes = 'Ya', $no = 'Cancelar Operación') {
 		$_ci = &get_instance();
 
 		if ($id != '') {
