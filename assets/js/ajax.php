@@ -462,6 +462,23 @@
             })
     })
     ////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////Exportar a pdf
+    $(document).on("click", ".exportarPdf", function() {
+        var id = $(this).attr("data-id");
+
+        $.ajax({
+            method: "POST",
+            url: "<?php echo base_url('DespidoInjustificado/PDF'); ?>",
+            data: "id=" +id
+        })
+            .done(function(data) {
+                //$('#tempat-modal').html(data);
+                //1.6 calculadora-despidoinjustificado es el nombre que ocupa en el echo show_my_modal del controlador como 2 parametro
+                //  $('#excel-calculadora-despidoinjustificado').modal('show');
+
+            })
+    })
+    ////////////////////////////////////////////////////////////////////////////////////
 
 
     $(document).on("click", ".calculadora-NuevaContratacion", function() {
@@ -554,11 +571,11 @@
                             //$('#update-pegawai').modal('show');
                             //MyTable.fnDestroy();
                             $('#data-DespidoInjustificadoCalculadora').html(data);
-                            refresh();
-                            MyTable.fnDestroy();
+                            //refresh();
+                            ///MyTable.fnDestroy();
             
                                             })
-                 alert("!!!Calculo Agregado!!!");
+                 //alert("!!!Calculo Agregado!!!");
                 $('.msg').html(out.msg);
 				effect_msg();
 				
@@ -589,9 +606,7 @@
                     effect_msg_form();
                 } else {
                     document.getElementById("form-insertarDI").reset();
-                    //document.getElementById("form-insertarDI").hide();
                     $('#Modal-DespidoInjustificado').modal('hide');
-
                     $('.msg').html(out.msg);
                     effect_msg();
                     llenarDespidoInjustificado();
