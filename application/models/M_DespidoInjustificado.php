@@ -18,19 +18,19 @@ class M_DespidoInjustificado extends CI_Model {
     }
 
     public function select_all2() {
-        $sql = "SELECT * FROM despido_injustificado";
+        $sql = "SELECT * FROM despido_injustificado order by id_grupo_despido_injustificado DESC";
         $data = $this->db->query($sql);
         return $data->result();
     }
 	///////////////////////////////////////////////////////////////////////////////////////////
     public function select_by_id($id) {
-        $sql = "select * from grupo_despido_injustificado where id_grupo_despido_injustificado = '{$id}'";
+        $sql = "select * from grupo_despido_injustificado where id_grupo_despido_injustificado = '{$id} order by id_grupo_despido_injustificado DESC' ";
         $data = $this->db->query($sql);
         return $data->row();
     }
     ///////////////////////////////////////////////////////////////////////////////////////////
     public function select_by_grupo($id) {
-        $sql = "select * from despido_injustificado where id_grupo_despido_injustificado = '{$id}'";
+        $sql = "select * from despido_injustificado where id_grupo_despido_injustificado = '{$id} order by id_grupo_despido_injustificado DESC'";
         $data = $this->db->query($sql);
         return $data->result();
     }
@@ -43,7 +43,7 @@ class M_DespidoInjustificado extends CI_Model {
     public function insert($data) {
         /*$sql = "call Agregar_despido_injustificado('1','" .$data['numero_trabajadores'] ."','" .$data['puesto'] ."','" .$data['departamento'] ."','" .$data['salario_diario'] ."','" .$data['fecha_inicio'] ."','" .$data['fecha_fin'] ."')";*/
 
-    $sql = "INSERT INTO grupo_despido_injustificado VALUES('','" .$data['nombre_grupo'] ."','" .$data['descripcion'] ."','" .$data['fecha'] ."','" .$data['id_usuario'] ."')";
+    $sql = "INSERT INTO grupo_despido_injustificado VALUES('','" .$data['nombre_grupo'] ."','" .$data['descripcion'] ."',null,'" .$data['id_usuario'] ."')";
 
         //$sql = "INSERT INTO test VALUES('','" .$data['nombre_grupo'] ."','" .$data['descripcion'] ."')";
         $this->db->query($sql);

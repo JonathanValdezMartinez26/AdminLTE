@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
+<head><meta charset="gb18030">
+
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Calculadoras</title>
     <!-- Tell the browser to be responsive to screen width -->
@@ -27,15 +27,12 @@
 
 <header class="masthead">
     <div class="container h-100">
-        <div class="row h-100 align-items-center">
+        <div class="row align-items-center">
             <div class="col-12 text-center">
-                <br>
-                <h1 class="font-weight-light">Bienvenido Administrador</h1>
-                <br>
-                <p class="lead"></p>
-
-                <body class="hold-transition login-page">
                 <div class="formround">
+                    <body class="hold-transition login-page">
+                    <h1 class="font-weight-light">Bienvenido Administrador</h1>
+
                     <div class="login-logo">
                         <a href="<?php echo base_url(); ?>assets/index2.html"><b>Mi</b>Logo</a>
                     </div>
