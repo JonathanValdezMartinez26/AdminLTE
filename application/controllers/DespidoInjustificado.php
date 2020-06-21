@@ -316,30 +316,58 @@ class DespidoInjustificado extends AUTH_Controller {
     ////////////////////////////////////////////////////////////
     public function PDF()
     {
-        //Se agrega la clase desde thirdparty para usar FPDF
-
         $pdf = new PDF();
-        $pdf->AddPage('P','A4',0);
-        $pdf->SetFont('Arial','B',12);
-        //////////
-        $pdf->Cell(2);
-        $pdf->Ln();
-
-        $pdf->SetFont('Arial','B',15);
-
-        $pdf->Cell(80,10,'Reporte.',0,0,'C');
-
-
-        $pdf->SetFillColor(255,255, 255);
-        $pdf->SetTextColor(0,0,0);
-        $pdf->SetFont('Arial','',10);
-
-        $pdf->ln();
-
+        if (isset($_POST['ExportarPdf'])){ 
+            $id=$_POST['idDI'];
+            $nombre=$_POST['nombreGrupo'];
+            $data = $this->M_DespidoInjustificado->select_by_grupo($id);
         
-        $pdf->Output();
-
+        $pdf->AliasNbPages();
+        $pdf->AddPage('L','A4','0');/////Para hacer horizontal la pagina
+        $pdf->SetFont('Arial','B',15);
+        $pdf->Cell(0,10,utf8_decode('Calculos para grupo '.$nombre),1,0,'C');
+        //$pdf->Ln(20);
+        
+      ///////////////////////Cabecera  
+        ////Cell(ancho,alto,text,bordes,?,alineacion,colorear,link)
+       $pdf->SetY(30);
+        $pdf->SetFont('Arial','B',7);
+      $pdf->Cell(21,5,"# Trabajadores",1,'','C','','');
+      $pdf->Cell(40,5,"Puesto",1,'','C','','');
+      $pdf->Cell(40,5,"Departamento",1,'','C','','');
+      $pdf->Cell(20,5,"Salario Diario",1,'','C','','');
+      $pdf->Cell(16,5,"F. Inicio",1,'','C','','');
+      $pdf->Cell(16,5,"F. Final",1,'','C','','');
+      $pdf->Cell(20,5,"D. Trabajados",1,'','C','','');
+      $pdf->Cell(21,5,"Indemnizacion",1,'','C','','');
+      $pdf->Cell(15,5,"Aguinaldo",1,'','C','','');
+      $pdf->Cell(17,5,"Vacaciones",1,'','C','','');
+      $pdf->Cell(19,5,"P. Vacacional",1,'','C','','');
+      $pdf->Cell(19,5,"P. Antiguedad",1,'','C','','');
+      $pdf->Cell(13,5,"SubTotal",1,'','C','','');
+      $pdf->Ln();
+    ////////////////////////////////////
+      foreach($data as $value){
+        $pdf->SetFont('Arial','',7);
+        $pdf->Cell(21,5,$value->numero_trabajadores,1,'','C','','');
+        $pdf->Cell(40,5,$value->puesto,1,'','C','','');
+        $pdf->Cell(40,5,$value->departamento,1,'','C','','');
+        $pdf->Cell(20,5,$value->salario_diario,1,'','C','','');
+        $pdf->Cell(16,5,$value->fecha_inicio,1,'','C','','');
+        $pdf->Cell(16,5,$value->fecha_fin,1,'','C','','');
+        $pdf->Cell(20,5,$value->dias_trabajados,1,'','C','','');
+        $pdf->Cell(21,5,$value->indenmizacion_constitucional,1,'','C','','');
+        $pdf->Cell(15,5,$value->aguinaldo,1,'','C','','');
+        $pdf->Cell(17,5,$value->vacaciones,1,'','C','','');
+        $pdf->Cell(19,5,$value->prima_vacacional,1,'','C','','');
+        $pdf->Cell(19,5,$value->prima_antiguedad,1,'','C','','');
+        $pdf->Cell(13,5,$value->total_registro,1,'','C','','');
+        $pdf->Ln();
+      }
+        $pdf->ln();
+        $pdf->Output('I','Calculos '.$nombre.'.pdf',true);
         //////////
+        }
     }
     //////////////////////////////////////////////////////////////////////////////////////
 }
@@ -348,16 +376,32 @@ class PDF extends FPDF
 {
     function Header()
     {
-        $this->SetFont('Arial','B',15);
+        /*$this->SetFont('Arial','B',15);
         $this->Cell(0,10,utf8_decode('Este header se muestra en cada página generada'),1,0,'C');
-        $this->Ln(20);
+        $this->Ln(20);*/
     }
 
     function Footer()
     {
         $this->SetY(-15);
         $this->SetFont('Arial','I',8);
-        $this->Cell(0,10,utf8_decode('Este footer se muestra en cada página generada'),1,0,'C');
+        $this->Cell(0,10,utf8_decode('Copyright © 2020 Erlan. All rights reserved.'),1,0,'C');
         $this->Cell(-15,10,utf8_decode('Página ') . $this->PageNo(),0,0,'C');
     }
+    function TablaBasica($header)
+   {
+    //Cabecera
+    foreach($header as $col)
+    $this->Cell(40,7,$col,1);
+    $this->Ln();
+      $this->Cell(40,5,"hola",1);
+      $this->Cell(40,5,"hola2",1);
+      $this->Cell(40,5,"hola3",1);
+      $this->Cell(40,5,"hola4",1);
+      $this->Ln();
+      $this->Cell(40,5,"linea ",1);
+      $this->Cell(40,5,"linea 2",1);
+      $this->Cell(40,5,"linea 3",1);
+      $this->Cell(40,5,"linea 4",1);
+   } 
 }

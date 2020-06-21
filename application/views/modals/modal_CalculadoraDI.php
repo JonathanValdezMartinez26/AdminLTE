@@ -1,3 +1,4 @@
+
 <div class="col-md-12 well ">
     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     <h3 style="display:block; text-align:center;"><i class="fa fa-calculator"></i> Calculadora para Despido Injustificado </h3>
@@ -9,6 +10,9 @@
                     <div class="row">
                         <div class="col-sm-12">
                             <h4>Agregar Nuevo Cálculo</h4>
+                            <div class="msg" style="display:none;">
+                                    <?php echo @$this->session->flashdata('msg'); ?>
+                                    </div>
                             <form id="form-insertarCDI" method="POST">
 
                                     <div class="form-group col-sm-3">
@@ -68,6 +72,7 @@
                                 <h4>Cálculos en el Grupo</h4>
                                 <div class="alert alert-info">
                                     <p>Añada todos los cálculos que pertenezcan al grupo para visualizar el total.</p>
+                                    
 
                                 </div>
                                 <button type="submit" name="Exportar" value="Exportar Excel" class="btn btn-success">Exportar a Excel</button>
