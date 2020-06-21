@@ -16,7 +16,7 @@
 
     <!-- Sidebar Menu -->
     <ul class="sidebar-menu">
-      <li class="header">LIST MENU</li>
+      <li class="header">MENU</li>
       <!-- Optionally, you can add icons to the links -->
 
       <li <?php if ($page == 'home') {echo 'class="active"';} ?>>

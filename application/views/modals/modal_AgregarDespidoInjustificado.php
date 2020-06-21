@@ -19,11 +19,6 @@
               </div>
 
               <div class="form-group form-group col-sm-12">
-                  <label for="departamento">Fecha de registro</label>
-                  <input type="date" class="form-control" placeholder="Fecha registro" name="fecha" aria-describedby="sizing-addon2">
-              </div>
-
-              <div class="form-group form-group col-sm-12">
                   
                   <input type="hidden" class="form-control"  name="id_usuario" aria-describedby="sizing-addon2" value="<?php echo $userdata->id; ?>">
                   
