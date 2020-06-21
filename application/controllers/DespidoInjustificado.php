@@ -10,7 +10,8 @@ class DespidoInjustificado extends AUTH_Controller {
 
     public function index() {
         $data['userdata'] 	= $this->userdata;
-        $data['dataDespidoInjustificado'] = $this->M_DespidoInjustificado->select_all();
+        $id=1;
+        $data['dataDespidoInjustificado'] = $this->M_DespidoInjustificado->select_by_user($id);
 
         $data['page'] 		= "DespidoInjustificado";
         $data['titulo'] 		= "Despido Injustificado";

@@ -34,6 +34,11 @@ class M_DespidoInjustificado extends CI_Model {
         $data = $this->db->query($sql);
         return $data->result();
     }
+    public function select_by_user($id) {
+        $sql = "select * from grupo_despido_injustificado where id_usuario = '{$id}'";
+        $data = $this->db->query($sql);
+        return $data->result();
+    }
     /////////////////////////////////////////////////////////////////////////////
     public function insert($data) {
         /*$sql = "call Agregar_despido_injustificado('1','" .$data['numero_trabajadores'] ."','" .$data['puesto'] ."','" .$data['departamento'] ."','" .$data['salario_diario'] ."','" .$data['fecha_inicio'] ."','" .$data['fecha_fin'] ."')";*/
