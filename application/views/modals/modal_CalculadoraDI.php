@@ -20,7 +20,7 @@
 
                                         <input type="hidden" class="form-control"  name="id_grupo_despido_injustificado" value="<?php echo $DespidoInjustificado->id_grupo_despido_injustificado; ?>">
 
-                                        <label for="numero">numero de trabajadores*</label>
+                                        <label for="numero">Número de Trabajadores*</label>
                                         <input type="number" class="form-control" placeholder="Numero" name="numero_trabajadores" aria-describedby="sizing-addon2" >
                                     </div>
                                    <div class="form-group col-sm-3">
@@ -29,7 +29,7 @@
                                     </div>
 
                                 <div class="form-group col-sm-3">
-                                    <label for="departamento">departamento*</label>
+                                    <label for="departamento">Departamento*</label>
                                     <input type="text" class="form-control" placeholder="Departamento" name="departamento" aria-describedby="sizing-addon2">
                                 </div>
 
