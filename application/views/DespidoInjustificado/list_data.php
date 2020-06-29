@@ -29,7 +29,7 @@
         <!--//////////////////////////////-->
 
       <td class="text-center" style="min-width:15px;">
-        <button class="btn btn-info detail-dataPosisi" data-id="<?php echo $DespidoInjustificado->id_grupo_despido_injustificado; ?>"><i class="fa fa-pie-chart"></i> </button>        
+        <button class="btn btn-info grafica-despidoinjustificado" data-id="<?php echo $DespidoInjustificado->id_grupo_despido_injustificado; ?>"><i class="fa fa-pie-chart"></i> </button>        
         <!--<a href="<?php echo base_url('DespidoInjustificado/PDF'); ?>" target="_blank" id="imprimir_pdf" class="btn btn-danger"><i class="fa fa-file-pdf-o"></i></a>-->
         <button class="btn btn-danger confirmar-delete-despidoinjustificado" data-id="<?php echo $DespidoInjustificado->id_grupo_despido_injustificado; ?>" data-toggle="modal" data-target="#Modal-confirmacion-eliminar-despido-injustificado"><i class="fa fa-trash"></i></button>
 

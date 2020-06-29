@@ -579,7 +579,8 @@
                             $('#data-DespidoInjustificadoCalculadora').html(data);
                             //refresh();
                             ///MyTable.fnDestroy();
-            
+            				$('.msg').html(out.msg);
+                    		effect_msg();
                                             })
                         /////////////////////////mostrar mensaje
 						       $.ajax({
@@ -628,7 +629,30 @@
         e.preventDefault();
     });
     ////////////////////////////////////////////////////////////////////////////////////////////
+    $(document).on("click", ".grafica-despidoinjustificado", function() {
+        var id = $(this).attr("data-id");
 
+        $.ajax({
+            method: "POST",
+            //DespidoInjustificadfo es el nombre de la Carpeta en donde esta el modal
+            //calculadora es el nombre del metodo que esta en el controlador DespidoInjustificado
+            url: "<?php echo base_url('DespidoInjustificado/grafica'); ?>",
+            data: "id=" +id
+        })
+            .done(function(data) {
+                $('#tempat-modal').html(data);
+                $('#tabel-detail').dataTable({
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": true
+                });
+                //1.6 calculadora-despidoinjustificado es el nombre que ocupa en el echo show_my_modal del controlador como 2 parametro
+                $('#grafica-despidoinjustificado').modal('show');
+            })
+    })
 
 
 

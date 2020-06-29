@@ -26,8 +26,8 @@ class DespidoInjustificado extends AUTH_Controller {
     {
         //$id = trim($_POST['id']);
         //$data['userdata']= $this->id;
-        $id=1;
-        $data['dataDespidoInjustificado'] = $this->M_DespidoInjustificado->select_by_user($id);
+        //$id=1;
+        $data['dataDespidoInjustificado'] = $this->M_DespidoInjustificado->select_all();
         $this->load->view('DespidoInjustificado/list_data', $data);
     }
     /////////////////////////////////////////////////////////////////////////////
@@ -37,10 +37,10 @@ class DespidoInjustificado extends AUTH_Controller {
 
         $id = trim($_POST['id']);
         $data['dataDespidoInjustificado'] = $this->M_DespidoInjustificado->select_by_grupo($id);
-        $data['dataDespidoInjustificado1'] = $this->M_DespidoInjustificado->sumaDI($id);
+        //$data['dataDespidoInjustificado1'] = $this->M_DespidoInjustificado->sumaDI($id);
         //$data['dataDespidoInjustificado1'] = $this->M_DespidoInjustificado->sumaDI($id);
         $this->load->view('DespidoInjustificado/list_data_CalculadoraDI', $data);
-        $this->load->view('DespidoInjustificado/mensajes', $data);
+        //$this->load->view('DespidoInjustificado/mensajes', $data);
     }
     /////////////////////////////////////////////////////////////////////////////
     public function mostrarTotal()
@@ -49,8 +49,10 @@ class DespidoInjustificado extends AUTH_Controller {
 
         $id = trim($_POST['id']);
         //$data['dataDespidoInjustificado'] = $this->M_DespidoInjustificado->select_by_grupo($id);
+        
+        //$data['dataDespidoInjustificado1'] = $this->M_DespidoInjustificado->sumaDias($id);        
         $data['dataDespidoInjustificado1'] = $this->M_DespidoInjustificado->sumaDI($id);
-        //$data['dataDespidoInjustificado1'] = $this->M_DespidoInjustificado->sumaDI($id);
+        $data['dataDespidoInjustificado2'] = $this->M_DespidoInjustificado->sumaDias($id);
         //$this->load->view('DespidoInjustificado/list_data_CalculadoraDI', $data);
         $this->load->view('DespidoInjustificado/mensajes', $data);
     }
@@ -64,6 +66,7 @@ class DespidoInjustificado extends AUTH_Controller {
         $data['DespidoInjustificado'] = $this->M_DespidoInjustificado->select_by_id($id);//sirve para poner en el titulo
         $data['dataDespidoInjustificado'] = $this->M_DespidoInjustificado->select_by_grupo($id);
         $data['dataDespidoInjustificado1'] = $this->M_DespidoInjustificado->sumaDI($id);
+        $data['dataDespidoInjustificado2'] = $this->M_DespidoInjustificado->sumaDias($id);
         echo show_my_modal('modals/modal_CalculadoraDI', 'calculadora-despidoinjustificado', $data, 'lg');
         
     }
@@ -151,6 +154,16 @@ class DespidoInjustificado extends AUTH_Controller {
             echo show_err_msg('Los datos no se han eliminado', '20px');
         }
     }
+    public function grafica() {
+        $data['userdata']   = $this->userdata;
+        $id = trim($_POST['id']);
+
+        $data['DespidoInjustificado'] = $this->M_DespidoInjustificado->select_by_id($id);//sirve para poner en el titulo
+        $data['dataDespidoInjustificado'] = $this->M_DespidoInjustificado->select_by_grupo($id);
+
+        echo show_my_modal('modals/modal_grafica', 'grafica-despidoinjustificado', $data, 'lg');
+    }
+
 
     public function export() {
         error_reporting(E_ALL);
