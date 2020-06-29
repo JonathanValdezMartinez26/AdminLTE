@@ -6,6 +6,7 @@
           <div class="box-header">
             <div class="col-md-6" style="padding: 0;">
                 <button class="form-control btn btn-primary" data-toggle="modal" data-target="#Modal-DespidoInjustificado"><i class="fa fa-plus"></i> Agregar Nuevo Cálculo <?php echo $userdata->id; ?></button>
+                <!--<button  class="btn btn-primary enviarId">Ingresar2</button>-->
             </div>
             <div class="col-md-3">
         <a href="<?php echo base_url('DespidoInjustificado/export'); ?>" class="form-control btn btn-default"><i class="glyphicon glyphicon glyphicon-floppy-save"></i> Exportar a Excel</a>

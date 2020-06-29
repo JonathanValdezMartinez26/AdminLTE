@@ -11,7 +11,7 @@ class DespidoInjustificado extends AUTH_Controller {
     public function index() {
         $data['userdata'] 	= $this->userdata;
         $id=1;
-        $data['dataDespidoInjustificado'] = $this->M_DespidoInjustificado->select_by_user($id);
+        //$data['dataDespidoInjustificado'] = $this->M_DespidoInjustificado->select_by_user($id);
 
         $data['page'] 		= "DespidoInjustificado";
         $data['titulo'] 		= "Despido Injustificado";
@@ -24,7 +24,10 @@ class DespidoInjustificado extends AUTH_Controller {
 	//////////////////////////////////////////////////////////////////////////////
     public function llenar()
     {
-        $data['dataDespidoInjustificado'] = $this->M_DespidoInjustificado->select_all();
+        //$id = trim($_POST['id']);
+        //$data['userdata']= $this->id;
+        $id=1;
+        $data['dataDespidoInjustificado'] = $this->M_DespidoInjustificado->select_by_user($id);
         $this->load->view('DespidoInjustificado/list_data', $data);
     }
     /////////////////////////////////////////////////////////////////////////////
@@ -34,9 +37,25 @@ class DespidoInjustificado extends AUTH_Controller {
 
         $id = trim($_POST['id']);
         $data['dataDespidoInjustificado'] = $this->M_DespidoInjustificado->select_by_grupo($id);
+        $data['dataDespidoInjustificado1'] = $this->M_DespidoInjustificado->sumaDI($id);
+        //$data['dataDespidoInjustificado1'] = $this->M_DespidoInjustificado->sumaDI($id);
         $this->load->view('DespidoInjustificado/list_data_CalculadoraDI', $data);
+        $this->load->view('DespidoInjustificado/mensajes', $data);
     }
     /////////////////////////////////////////////////////////////////////////////
+    public function mostrarTotal()
+    {
+        $data['userdata']   = $this->userdata;
+
+        $id = trim($_POST['id']);
+        //$data['dataDespidoInjustificado'] = $this->M_DespidoInjustificado->select_by_grupo($id);
+        $data['dataDespidoInjustificado1'] = $this->M_DespidoInjustificado->sumaDI($id);
+        //$data['dataDespidoInjustificado1'] = $this->M_DespidoInjustificado->sumaDI($id);
+        //$this->load->view('DespidoInjustificado/list_data_CalculadoraDI', $data);
+        $this->load->view('DespidoInjustificado/mensajes', $data);
+    }
+    /////////////////////////////////////////////////////////////////////////////
+
     public function calculadora() {
         $data['userdata'] 	= $this->userdata;
 
@@ -44,11 +63,9 @@ class DespidoInjustificado extends AUTH_Controller {
 
         $data['DespidoInjustificado'] = $this->M_DespidoInjustificado->select_by_id($id);//sirve para poner en el titulo
         $data['dataDespidoInjustificado'] = $this->M_DespidoInjustificado->select_by_grupo($id);
-
-        //calculadora-despidoinjustificado viene del ajax punto 1.6
-        //modals/modal_CalculadoraDI es el nombre de la carpeta mas el nombre dle modal
+        $data['dataDespidoInjustificado1'] = $this->M_DespidoInjustificado->sumaDI($id);
         echo show_my_modal('modals/modal_CalculadoraDI', 'calculadora-despidoinjustificado', $data, 'lg');
-        //$this->load->view('DespidoInjustificado/list_data_Calculadora', $data);
+        
     }
     /////////////////////////////////////////////////////////////////////////////
 
@@ -210,6 +227,7 @@ class DespidoInjustificado extends AUTH_Controller {
         //$id="56";
         //$data = $this->M_DespidoInjustificado->select_all2();
         $data = $this->M_DespidoInjustificado->select_by_grupo($id);
+        $dataTotalExl = $this->M_DespidoInjustificado->sumaDI($id);
 
         $objPHPExcel = new PHPExcel(); 
         $objPHPExcel->setActiveSheetIndex(0); 
@@ -220,6 +238,7 @@ class DespidoInjustificado extends AUTH_Controller {
         $objPHPExcel->getActiveSheet()->getStyle("A2:O2")->getFont()->setBold(true);
           for ($col = 'A'; $col != 'Z'; $col++) { 
         $objPHPExcel->getActiveSheet()->getColumnDimension($col)->setAutoSize(true);
+    
 }
     //////Centrar        
     $objPHPExcel->getActiveSheet()->getStyle('A2:M2')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
@@ -243,7 +262,7 @@ class DespidoInjustificado extends AUTH_Controller {
         $objPHPExcel->getActiveSheet()->SetCellValue('K'.$rowCount, "Prima Vacacional");
         $objPHPExcel->getActiveSheet()->SetCellValue('L'.$rowCount, "Prima Antiguedad");
         $objPHPExcel->getActiveSheet()->getStyle('M'.$rowCount)->getFont()->setBold(true)->setSize(10)->getColor()->setRGB('37D122');
-        $objPHPExcel->getActiveSheet()->SetCellValue('M'.$rowCount, "Total");
+        $objPHPExcel->getActiveSheet()->SetCellValue('M'.$rowCount, "Subtotal");
         $rowCount++;
 
         foreach($data as $value){
@@ -264,11 +283,25 @@ class DespidoInjustificado extends AUTH_Controller {
             $objPHPExcel->getActiveSheet()->getStyle('M'.$rowCount)->getFont()->setBold(true)->setSize(10)->getColor()->setRGB('37D122');             
             $objPHPExcel->getActiveSheet()->SetCellValue('M'.$rowCount, $value->total_registro);             
             $rowCount++; 
-        } 
+
+        }
+
+        //////////////////////////////7Campo total
+        foreach($dataTotalExl as $value){ 
+            //////////Centrar////////
+        $objPHPExcel->getActiveSheet()->getStyle('A'.$rowCount.':M'.$rowCount)->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+        /////////Negrita
+        $objPHPExcel->getActiveSheet()->getStyle('L'.$rowCount.':M'.$rowCount)->getFont()->setBold(true);
+        //////////////////////7Rellenar celdas
+        $objPHPExcel->getActiveSheet()->getStyle('M'.$rowCount)->getFill()->setFillType(PHPExcel_Style_Fill::FILL_SOLID)
+        ->getStartColor()->setARGB('37D122');
+        $objPHPExcel->getActiveSheet()->SetCellValue('L'.$rowCount, 'TOTAL');
+        $objPHPExcel->getActiveSheet()->SetCellValue('M'.$rowCount, $value->total);             
+    }//////////////////////////////////////////////////////////////////////////////
+
 
         $objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel); 
         $objWriter->save('./assets/excel/Despidos Injustificados grupo '.$nombre.'.xlsx'); 
-
         $this->load->helper('download');
         force_download('./assets/excel/Despidos Injustificados grupo '.$nombre.'.xlsx', NULL);
         }
@@ -300,6 +333,7 @@ class DespidoInjustificado extends AUTH_Controller {
             $objPHPExcel->getActiveSheet()->SetCellValue('D'.$rowCount, $value->fecha_registro); 
             $objPHPExcel->getActiveSheet()->SetCellValue('E'.$rowCount, $value->id_usuario);             
             $rowCount++; 
+
         } 
 
         $objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel); 
@@ -322,6 +356,7 @@ class DespidoInjustificado extends AUTH_Controller {
             $id=$_POST['idDI'];
             $nombre=$_POST['nombreGrupo'];
             $data = $this->M_DespidoInjustificado->select_by_grupo($id);
+            $dataTotal = $this->M_DespidoInjustificado->sumaDI($id);
         
         $pdf->AliasNbPages();
         $pdf->AddPage('L','A4','0');/////Para hacer horizontal la pagina
@@ -362,9 +397,14 @@ class DespidoInjustificado extends AUTH_Controller {
         $pdf->Cell(17,5,$value->vacaciones,1,'','C','','');
         $pdf->Cell(19,5,$value->prima_vacacional,1,'','C','','');
         $pdf->Cell(19,5,$value->prima_antiguedad,1,'','C','','');
-        $pdf->Cell(13,5,$value->total_registro,1,'','C','','');
+        $pdf->Cell(13,5,$value->total_registro,1,'','C','','');        
         $pdf->Ln();
       }
+        $pdf->SetFont('Arial','B',7);
+        $pdf->Cell(264,5,'TOTAL',1,'','R','','');
+        foreach($dataTotal as $value){
+        $pdf->Cell(13,5,$value->total,1,'','C','','');
+    }
         $pdf->ln();
         $pdf->Output('I','Calculos '.$nombre.'.pdf',true);
         //////////

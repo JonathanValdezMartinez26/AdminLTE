@@ -5,6 +5,7 @@ class Auth extends CI_Controller {
 	public function __construct() {
 		parent::__construct();
 		$this->load->model('M_auth');
+		//$this->load->model('M_DespidoInjustificado');
 	}
 	
 	public function index() {
@@ -32,11 +33,14 @@ class Auth extends CI_Controller {
 				redirect('Auth');
 			} else {
 				$session = [
+					//'id' => $data,
 					'userdata' => $data,
 					'status' => "Loged in"
 				];
 				$this->session->set_userdata($session);
 				redirect('Home');
+				/*$id=1;
+                $data['dataDespidoInjustificado'] = $this->M_DespidoInjustificado->select_by_user($id);*/
 			}
 		} else {
 			$this->session->set_flashdata('error_msg', validation_errors());

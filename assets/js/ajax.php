@@ -390,7 +390,8 @@
 
     ////////////////////////////////////////////////////////////////////////////////////
     function llenarDespidoInjustificado() {
-        $.get('<?php echo base_url('DespidoInjustificado/llenar'); ?>', function(data) {
+        $.get('<?php echo base_url('DespidoInjustificado/llenar'); ?>',
+         function(data) {
             MyTable.fnDestroy();
             $('#data-DespidoInjustificado').html(data);
             refresh();
@@ -506,6 +507,11 @@
                 $('#calculadora-NuevaContratacion').modal('show');
             })
     })
+    //////////////////////////////////////////////////////7
+    $(document).on("click", ".enviarId", function() {
+    	alert("!!!Calculo Agregado!!!");
+        
+    })
     //////////////////////////////////////////////////////////////////////////////////// es dos
     var id_despidoinjustificado;
     $(document).on("click", ".confirmar-delete-despidoinjustificado", function() {
@@ -532,7 +538,7 @@
     var idCDI;
      $(document).on("click", ".actualizarCDI", function() {
         idCDI = $(this).attr("data-id");
-        
+     
     
     })
 
@@ -575,10 +581,16 @@
                             ///MyTable.fnDestroy();
             
                                             })
-                 //alert("!!!Calculo Agregado!!!");
-                $('.msg').html(out.msg);
-				effect_msg();
-				
+                        /////////////////////////mostrar mensaje
+						       $.ajax({
+						            method: "POST",
+						            url: "<?php echo base_url('DespidoInjustificado/mostrarTotal'); ?>",
+						            data: "id=" +idCDI
+						        })
+						            .done(function(data) {
+						               $('#data-MensajesDI').html(data);
+						              
+						            })				
 			}
 		})
        

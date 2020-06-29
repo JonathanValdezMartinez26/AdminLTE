@@ -22,7 +22,9 @@
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
     <![endif]-->
+    <script src="assets/js/ajax.php"></script>
 </head>
 
 <header class="masthead">
@@ -55,21 +57,22 @@
                             <div class="row">
 
                                 <div class=" col-xs-12">
-                                    <button type="submit" class="btn btn-primary btn-block">Ingresar</button>
+                                    <button type="submit" class="btn btn-primary">Ingresar</button>
                                 </div>
                             </div>
                         </form>
-
+                        <!--<button  class="btn btn-primary enviarId">Ingresar2</button>-->
                     </div>
                     <?php
                     echo show_err_msg($this->session->flashdata('error_msg'));
                     ?>
                 </div>
-
+                
                 <script src="<?php echo base_url(); ?>assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
                 <!-- Bootstrap 3.3.6 -->
                 <script src="<?php echo base_url(); ?>assets/bootstrap/js/bootstrap.min.js"></script>
                 <!-- iCheck -->
+                
 
                 </body>
 

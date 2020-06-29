@@ -71,7 +71,8 @@
                             <div class="box-body">
                                 <h4>Cálculos en el Grupo</h4>
                                 <div class="alert alert-info">
-                                    <p>Añada todos los cálculos que pertenezcan al grupo para visualizar el total.</p>
+                                    <p>Añada todos los cálculos que pertenezcan al grupo para visualizar el total.
+</p>
                                     
 
                                 </div>
@@ -130,8 +131,18 @@
                                     </table>
 
                                 </div>
-                                <hr>
-
+                                
+                                <div id="data-MensajesDI">
+                                <div class="alert alert-info">
+                                    <h5><p align="right"> El TOTAL DEL GRUPO ES: <?php
+                                    foreach ($dataDespidoInjustificado1 as $DespidoInjustificado1) {
+                                        echo $DespidoInjustificado1->total;
+                                    }
+                                        ?>
+                                    </p></h5>
+                                    </div>
+                                    </div>
+                                    <hr>
                             </div>
                         </div>
                     </div>

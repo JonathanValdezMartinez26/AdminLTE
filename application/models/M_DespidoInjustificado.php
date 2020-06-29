@@ -39,6 +39,16 @@ class M_DespidoInjustificado extends CI_Model {
         $data = $this->db->query($sql);
         return $data->result();
     }
+
+    public function sumaDI($id) {
+        //$sql = "select * from kota";
+        $sql="SELECT TRUNCATE(SUM(total_registro),2) AS total FROM despido_injustificado WHERE id_grupo_despido_injustificado='{$id}'";
+        //$sql="SELECT SUM(total_registro) AS total FROM despido_injustificado WHERE id_grupo_despido_injustificado='{$id}'";
+        
+        //SELECT TRUNCATE(SUM(total_registro),2) AS total FROM despido_injustificado WHERE id_grupo_despido_injustificado='107'
+        $data = $this->db->query($sql);
+        return $data->result();
+    }
     /////////////////////////////////////////////////////////////////////////////
     public function insert($data) {
         /*$sql = "call Agregar_despido_injustificado('1','" .$data['numero_trabajadores'] ."','" .$data['puesto'] ."','" .$data['departamento'] ."','" .$data['salario_diario'] ."','" .$data['fecha_inicio'] ."','" .$data['fecha_fin'] ."')";*/
